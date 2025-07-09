@@ -1,46 +1,235 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chúc Mừng Sinh Nhật!</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chúc Mừng Sinh Nhật!</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Roboto:wght@400;700&display=swap');
+
+    body {
+      background: linear-gradient(to right, #ff9a9e, #fad0c4);
+      font-family: 'Roboto', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px 0;
+      margin: 0;
+      overflow-y: auto;
+    }
+
+    .container {
+      text-align: center;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.9);
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      max-width: 600px;
+      transition: transform 0.3s ease;
+    }
+
+    .card:hover {
+      transform: scale(1.02);
+    }
+
+    .heading {
+      font-family: 'Pacifico', cursive;
+      color: #e91e63;
+      font-size: 2.8rem;
+      margin-bottom: 10px;
+    }
+
+    #friend-name {
+      color: #333;
+      font-size: 2rem;
+      margin-top: 0;
+    }
+
+    .message {
+      color: #555;
+      font-size: 1.1rem;
+      line-height: 1.6;
+    }
+
+    .image-container img {
+      max-width: 80%;
+      border-radius: 15px;
+      margin-top: 20px;
+      border: 5px solid #fff;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+
+    #surprise-btn {
+      background-color: #ff4081;
+      color: white;
+      border: none;
+      padding: 15px 30px;
+      font-size: 1rem;
+      font-weight: bold;
+      border-radius: 50px;
+      cursor: pointer;
+      margin-top: 30px;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    #surprise-btn:hover {
+      background-color: #d81b60;
+      transform: translateY(-2px);
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    #photo-gallery {
+      margin-top: 30px;
+      animation: fadeIn 1s ease-in-out;
+    }
+
+    #photo-gallery h3 {
+      color: #e91e63;
+      font-family: 'Pacifico', cursive;
+      font-size: 1.8rem;
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .gallery-grid img {
+      width: 100%;
+      height: 120px;
+      object-fit: cover;
+      border-radius: 10px;
+      border: 3px solid #fff;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .gallery-grid img:hover {
+      transform: scale(1.1);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+      z-index: 10;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .pyro {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      display: none;
+    }
+
+    .pyro > .before, .pyro > .after {
+      position: absolute;
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      box-shadow: -120px -218.66667px blue, 248px -16.66667px cyan, 190px 16.33333px magenta, -113px -308.66667px red, -199px -112.66667px yellow, -34px -23.66667px gold, -163px -204.66667px orange, -100px -100.66667px indigo, 239px -126.66667px violet, 137px -32.66667px deeppink;
+      animation: 1s bang ease-out infinite backwards, 1s gravity ease-in infinite backwards, 5s position linear infinite backwards;
+    }
+
+    .pyro > .after {
+      animation-delay: 1.25s, 1.25s, 6.25s;
+      animation-duration: 1.25s, 1.25s, 6.25s;
+    }
+
+    @keyframes bang {
+      from {
+        box-shadow: 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white, 0 0 white;
+      }
+    }
+
+    @keyframes gravity {
+      to {
+        transform: translateY(200px);
+        opacity: 0;
+      }
+    }
+
+    @keyframes position {
+      0%, 19.9% { margin-top: 10%; margin-left: 40%; }
+      20%, 39.9% { margin-top: 40%; margin-left: 30%; }
+      40%, 59.9% { margin-top: 20%; margin-left: 70%; }
+      60%, 79.9% { margin-top: 30%; margin-left: 20%; }
+      80%, 99.9% { margin-top: 30%; margin-left: 80%; }
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <div class="card">
-            <h1 class="heading">🎉 Chúc Mừng Sinh Nhật 🎉</h1>
-            <h2 id="friend-name">Chị Thỏ Ngọc</h2>
-            <p class="message">
-                Chúc Chị Thỏ Ngọc tuổi mới luôn vui vẻ, mạnh khỏe và đạt được mọi điều mình mong muốn.
-                Hãy luôn giữ nụ cười trên môi nhé!
-            </p>
-            <div class="image-container">
-                <img src="../img/img3.jpg" alt="Ảnh kỷ niệm">
-            </div>
-            
-            <button id="surprise-btn">Một món quà nhỏ đang chờ bạn!</button>
+  <div class="container">
+    <div class="card">
+      <h1 class="heading">🎉 Chúc Mừng Sinh Nhật 🎉</h1>
+      <h2 id="friend-name">Chị Thỏ Ngọc</h2>
+      <p class="message">
+        Chúc Chị Thỏ Ngọc tuổi mới luôn vui vẻ, mạnh khỏe và đạt được mọi điều mình mong muốn.
+        Hãy luôn giữ nụ cười trên môi nhé!
+      </p>
+      <div class="image-container">
+        <img src="img/img3.jpg" alt="Ảnh kỷ niệm" />
+      </div>
 
-            <div id="photo-gallery" class="hidden">
-                <h3>Những tấm ảnh đẹp nhất 📸</h3>
-                <div class="gallery-grid">
-                    
-                    <img src="../img/img1.jpg" alt="Kỷ niệm 2">
-                    <img src="../img/img2.jpg" alt="Kỷ niệm 3">
-                    <img src="../img/img4.jpg" alt="Kỷ niệm 4">
-                    <img src="../img/img5.jpg" alt="Kỷ niệm 5">
-                    <img src="../img/img6.jpg" alt="Kỷ niệm 6">
+      <button id="surprise-btn">Một món quà nhỏ đang chờ bạn!</button>
 
-                </div>
-            </div>
-             </div>
-        
-        <div class="pyro">
-            <div class="before"></div>
-            <div class="after"></div>
+      <div id="photo-gallery" class="hidden">
+        <h3>Những tấm ảnh đẹp nhất 📸</h3>
+        <div class="gallery-grid">
+          <img src="img/img1.jpg" alt="Kỷ niệm 2" />
+          <img src="img/img2.jpg" alt="Kỷ niệm 3" />
+          <img src="img/img4.jpg" alt="Kỷ niệm 4" />
+          <img src="img/img5.jpg" alt="Kỷ niệm 5" />
+          <img src="img/img6.jpg" alt="Kỷ niệm 6" />
         </div>
+      </div>
     </div>
 
-    <script src="script.js"></script>
+    <div class="pyro">
+      <div class="before"></div>
+      <div class="after"></div>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const surpriseBtn = document.getElementById('surprise-btn');
+      const pyro = document.querySelector('.pyro');
+      const photoGallery = document.getElementById('photo-gallery');
+      const initialImageContainer = document.querySelector('.image-container');
+
+      surpriseBtn.addEventListener('click', function () {
+        surpriseBtn.style.display = 'none';
+        initialImageContainer.style.display = 'none';
+
+        if (pyro) {
+          pyro.style.display = 'block';
+        }
+
+        if (photoGallery) {
+          photoGallery.classList.remove('hidden');
+        }
+
+        const message = document.querySelector('.message');
+        if (message) {
+          message.innerHTML =
+            "<strong>Bất ngờ chưa!</strong><br>Cùng nhìn lại những kỷ niệm tuyệt vời của chúng ta nhé. Mong rằng chúng ta sẽ có thêm thật nhiều khoảnh khắc đáng nhớ hơn nữa!";
+        }
+      });
+    });
+  </script>
 </body>
 </html>
